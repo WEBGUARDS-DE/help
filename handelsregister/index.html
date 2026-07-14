@@ -72,49 +72,6 @@
             color: var(--text-secondary);
         }
 
-        .refresh-btn {
-            background-color: var(--primary);
-            color: white;
-            border: none;
-            padding: 0.5rem 1rem;
-            border-radius: 0.375rem;
-            cursor: pointer;
-            font-size: 0.9rem;
-            transition: background-color 0.2s;
-        }
-
-        .refresh-btn:hover {
-            background-color: var(--primary-light);
-        }
-
-        .refresh-btn.loading {
-            opacity: 0.6;
-            cursor: not-allowed;
-        }
-
-        .status {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-size: 0.9rem;
-        }
-
-        .status-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background-color: var(--success);
-        }
-
-        .status-dot.loading {
-            background-color: var(--warning);
-            animation: pulse 1.5s ease-in-out infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
-        }
 
         .card {
             background-color: var(--bg-secondary);
@@ -249,20 +206,13 @@
                     <h1>🏢 Handelsregisterauszug</h1>
                     <p class="timestamp">Zuletzt aktualisiert: <span id="lastUpdate">-</span></p>
                 </div>
-                <div style="display: flex; gap: 1rem; align-items: center;">
-                    <div class="status">
-                        <div class="status-dot" id="statusDot"></div>
-                        <span id="statusText">Bereit</span>
-                    </div>
-                    <button class="refresh-btn" id="refreshBtn" onclick="loadData()">🔄 Aktualisieren</button>
-                </div>
             </div>
         </header>
 
         <div id="content"></div>
 
         <footer>
-            <p>Quelle: Amtsgericht Rostock | Automatische Aktualisierung alle 5 Minuten</p>
+            <p>Quelle: Amtsgericht Rostock |</p>
         </footer>
     </div>
 
@@ -272,14 +222,6 @@
 
         async function loadData() {
             const contentDiv = document.getElementById('content');
-            const refreshBtn = document.getElementById('refreshBtn');
-            const statusDot = document.getElementById('statusDot');
-            const statusText = document.getElementById('statusText');
-
-            refreshBtn.classList.add('loading');
-            refreshBtn.disabled = true;
-            statusDot.classList.add('loading');
-            statusText.textContent = 'Wird aktualisiert...';
 
             try {
                 const response = await fetch(GITHUB_URL);
@@ -296,9 +238,9 @@
                 const data = parseXML(xmlDoc);
                 contentDiv.innerHTML = renderHTML(data);
 
-                document.getElementById('lastUpdate').textContent = new Date().toLocaleString('de-DE');
-                statusDot.classList.remove('loading');
-                statusText.textContent = 'Aktuell';
+                const now = new Date();
+                const dateStr = `${now.getDate()}.${now.getMonth() + 1}.${now.getFullYear()}, ${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}:${String(now.getSeconds()).padStart(2, '0')}`;
+                document.getElementById('lastUpdate').textContent = dateStr;
 
             } catch (error) {
                 contentDiv.innerHTML = `
@@ -306,12 +248,6 @@
                         <strong>Fehler beim Laden:</strong> ${error.message}
                     </div>
                 `;
-                statusDot.classList.remove('loading');
-                statusDot.style.backgroundColor = '#ef4444';
-                statusText.textContent = 'Fehler';
-            } finally {
-                refreshBtn.classList.remove('loading');
-                refreshBtn.disabled = false;
             }
         }
 
