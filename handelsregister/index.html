@@ -212,7 +212,7 @@
         <div id="content"></div>
 
         <footer>
-            <p>Quelle: Amtsgericht Rostock |</p>
+            <p>Quelle: Amtsgericht Rostock | <span id="footerTime">-</span></p>
         </footer>
     </div>
 
@@ -241,6 +241,7 @@
                 const now = new Date();
                 const dateStr = `${now.getDate()}.${now.getMonth() + 1}.${now.getFullYear()}, ${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}:${String(now.getSeconds()).padStart(2, '0')}`;
                 document.getElementById('lastUpdate').textContent = dateStr;
+                document.getElementById('footerTime').textContent = dateStr;
 
             } catch (error) {
                 contentDiv.innerHTML = `
