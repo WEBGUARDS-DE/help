@@ -1,13 +1,4 @@
-// GitHub API Config - Token gesplittet
-const part1 = 'github_pat_11BXS2SJQ08E3F';
-const part2 = 'HJHhA68Q_rROPL4tkb1sWMxZ5';
-const part3 = 'lBFeT3xqdDqbvY5ncAD5mIfESI4W3FXRY2N4aCzCWIX';
-const GITHUB_TOKEN = part1 + part2 + part3;
-
-const GITHUB_OWNER = 'WEBGUARDS-DE';
-const GITHUB_REPO = 'help';
-
-// Form Handler
+// Form Handler - Support API via call.ob5.dev
 const form = document.getElementById('support-form');
 const submitBtn = document.getElementById('submit-btn');
 const messageDiv = document.getElementById('message');
@@ -40,34 +31,28 @@ form.addEventListener('submit', async (e) => {
       throw new Error('Ungültige E-Mail-Adresse');
     }
 
-    // GitHub API: repository_dispatch Event
-    const response = await fetch(
-      `https://api.github.com/repos/${GITHUB_OWNER}/${GITHUB_REPO}/dispatches`,
-      {
-        method: 'POST',
-        headers: {
-          'Authorization': `token ${GITHUB_TOKEN}`,
-          'Accept': 'application/vnd.github.v3+json',
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          event_type: 'support-form-submitted',
-          client_payload: formData
-        })
-      }
-    );
+    // Support API: POST zu call.ob5.dev
+    const response = await fetch('https://call.ob5.dev/support', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(formData)
+    });
 
     if (!response.ok) {
       const error = await response.json();
-      throw new Error(error.message || 'Fehler beim Absenden der Anfrage');
+      throw new Error(error.error || 'Fehler beim Absenden der Anfrage');
     }
 
+    const result = await response.json();
+
     // Erfolg
-    showMessage('Anfrage erhalten! Wir kümmern uns darum.', 'success');
+    showMessage('✅ Anfrage erhalten! Wir kümmern uns darum.', 'success');
     form.reset();
 
   } catch (error) {
-    showMessage(`Fehler: ${error.message}`, 'error');
+    showMessage(`❌ Fehler: ${error.message}`, 'error');
   } finally {
     submitBtn.disabled = false;
     loadingDiv.classList.remove('show');
