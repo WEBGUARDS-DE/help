@@ -4,52 +4,108 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Support - WEBGUARDS</title>
-  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="../styles.css">
+  <link rel="stylesheet" href="../assets_webguards/fontawesome/css/all.min.css">
 </head>
 <body>
-  <div class="container">
-    <h1>Support-Anfrage</h1>
-    
-    <form id="support-form">
-      <div class="form-group">
-        <label for="name">Name *</label>
-        <input type="text" id="name" name="name" required>
+  <header>
+    <div class="header-content">
+      <a href="/" class="logo">
+        <svg width="40" height="40" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="100" cy="100" r="95" fill="none" stroke="#2563eb" stroke-width="8"/>
+          <text x="100" y="125" font-size="80" font-weight="bold" text-anchor="middle" fill="#2563eb" font-family="Arial">W</text>
+        </svg>
+        WEBGUARDS
+      </a>
+      <nav>
+        <a href="/">Home</a>
+        <a href="/#services">Services</a>
+        <a href="/support">Support</a>
+        <div class="nav-dropdown">
+          <a href="#" class="nav-dropdown-toggle">Datenschutz & Recht ▼</a>
+          <div class="nav-dropdown-menu">
+            <a href="/impressum/">Impressum</a>
+            <a href="/datenschutz/">Datenschutz</a>
+            <a href="/agb/">AGB</a>
+          </div>
+        </div>
+      </nav>
+    </div>
+    <nav id="mobile-nav">
+      <a href="/">Home</a>
+      <a href="/#services">Services</a>
+      <a href="/support">Support</a>
+      <div class="nav-dropdown">
+        <a href="#" class="nav-dropdown-toggle">Datenschutz & Recht ▼</a>
+        <div class="nav-dropdown-menu">
+          <a href="/impressum/">Impressum</a>
+          <a href="/datenschutz/">Datenschutz</a>
+          <a href="/agb/">AGB</a>
+        </div>
       </div>
+    </nav>
+  </header>
 
-      <div class="form-group">
-        <label for="email">Email *</label>
-        <input type="email" id="email" name="email" required>
+  <main>
+    <section class="hero" style="padding: 4rem 2rem;">
+      <h1>Kontaktieren Sie unseren Support</h1>
+      <p>Wir sind hier, um Ihnen zu helfen. Senden Sie uns eine Nachricht und wir kümmern uns darum.</p>
+    </section>
+
+    <section class="support-form-section" style="padding: 2rem; max-width: 600px; margin: 0 auto;">
+      <form id="support-form">
+        <div class="form-group">
+          <label for="name">Name *</label>
+          <input type="text" id="name" name="name" required>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email *</label>
+          <input type="email" id="email" name="email" required>
+        </div>
+
+        <div class="form-group">
+          <label for="telefon">Telefon <span class="optional">(optional)</span></label>
+          <input type="tel" id="telefon" name="telefon">
+        </div>
+
+        <div class="form-group">
+          <label for="kategorie">Kategorie *</label>
+          <select id="kategorie" name="kategorie" required>
+            <option value="">-- Bitte wählen --</option>
+            <option value="installation">Installation</option>
+            <option value="billing">Abrechnung</option>
+            <option value="account">Konto</option>
+            <option value="technical">Technisch</option>
+            <option value="other">Sonstiges</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="nachricht">Nachricht *</label>
+          <textarea id="nachricht" name="nachricht" required></textarea>
+        </div>
+
+        <button type="submit" id="submit-btn" class="submit-btn">Senden</button>
+        <div class="loading" id="loading">Wird verarbeitet...</div>
+      </form>
+
+      <div class="message" id="message"></div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-content">
+      <p>&copy; 2026 WEBGUARDS UG. Alle Rechte vorbehalten.</p>
+      <div class="footer-links">
+        <a href="/impressum/">Impressum</a>
+        <a href="/datenschutz/">Datenschutz</a>
+        <a href="/agb/">AGB</a>
       </div>
+    </div>
+  </footer>
 
-      <div class="form-group">
-        <label for="telefon">Telefon <span class="optional">(optional)</span></label>
-        <input type="tel" id="telefon" name="telefon">
-      </div>
-
-      <div class="form-group">
-        <label for="kategorie">Kategorie *</label>
-        <select id="kategorie" name="kategorie" required>
-          <option value="">-- Bitte wählen --</option>
-          <option value="installation">Installation</option>
-          <option value="billing">Abrechnung</option>
-          <option value="account">Konto</option>
-          <option value="technical">Technisch</option>
-          <option value="other">Sonstiges</option>
-        </select>
-      </div>
-
-      <div class="form-group">
-        <label for="nachricht">Nachricht *</label>
-        <textarea id="nachricht" name="nachricht" required></textarea>
-      </div>
-
-      <button type="submit" id="submit-btn">Senden</button>
-      <div class="loading" id="loading">Wird verarbeitet...</div>
-    </form>
-
-    <div class="message" id="message"></div>
-  </div>
-
+  <script src="../assets_webguards/fontawesome/js/all.min.js"></script>
   <script src="../assets/js/form-handler.js"></script>
 </body>
 </html>
