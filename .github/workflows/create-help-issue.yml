@@ -15,8 +15,8 @@ jobs:
       - name: Create Issue in customer Repo
         uses: actions/github-script@v7
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          script: |
+          github-token: ${{ secrets.SUPPORT_TOKEN }}
+          script: |\
             const payload = context.payload.client_payload;
             
             const categoryLabel = {
@@ -33,17 +33,7 @@ jobs:
               owner: 'WEBGUARDS-DE',
               repo: 'customer',
               title: '[Support] ' + payload.name,
-              body: `**Von:** ${payload.name} (${payload.email})
-${telefonText}
----
-
-## Nachricht
-
-${payload.nachricht}
-
----
-
-_Erstellt automatisch via Formular auf help.webguards.de_`,
+              body: `**Von:** ${payload.name} (${payload.email})\n${telefonText}---\n\n## Nachricht\n\n${payload.nachricht}\n\n---\n\n_Erstellt automatisch via Formular auf help.webguards.de_`,
               labels: ['status/new', 'type/support', categoryLabel]
             });
 
