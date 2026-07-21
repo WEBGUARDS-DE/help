@@ -1421,7 +1421,8 @@ li {
 /* Section Backgrounds */
 .docs-section,
 .troubleshooting-section,
-.best-practices-section {
+.best-practices-section,
+.faq-section {
   background-color: var(--bg);
 }
 
