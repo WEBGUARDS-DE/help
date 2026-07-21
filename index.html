@@ -90,56 +90,6 @@
             </div>
         </section>
 
-        <section id="support" class="support-section">
-            <h2 class="section-title">Support-Ticket erstellen</h2>
-            <p style="text-align: center; margin-bottom: 2rem; color: var(--text-secondary);">
-                Problem oder Frage? Lass uns wissen. Wir kümmern uns darum.
-            </p>
-            
-            <form id="support-form" class="support-form">
-                <div class="form-group">
-                    <label for="name">Name *</label>
-                    <input type="text" id="name" name="name" required placeholder="Dein Name">
-                </div>
-
-                <div class="form-group">
-                    <label for="email">E-Mail *</label>
-                    <input type="email" id="email" name="email" required placeholder="deine@email.com">
-                </div>
-
-                <div class="form-group">
-                    <label for="telefon">Telefon (optional)</label>
-                    <input type="tel" id="telefon" name="telefon" placeholder="+49...">
-                </div>
-
-                <div class="form-group">
-                    <label for="kategorie">Kategorie *</label>
-                    <select id="kategorie" name="kategorie" required>
-                        <option value="">-- Wähle eine Kategorie --</option>
-                        <option value="technical">Technisches Problem</option>
-                        <option value="installation">Installation / Setup</option>
-                        <option value="billing">Abrechnung</option>
-                        <option value="account">Konto / Account</option>
-                        <option value="other">Sonstiges</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="nachricht">Deine Nachricht *</label>
-                    <textarea id="nachricht" name="nachricht" rows="6" required placeholder="Beschreibe dein Problem oder deine Frage so genau wie möglich..."></textarea>
-                </div>
-
-                <button type="submit" id="submit-btn" class="submit-button">
-                    <i class="fas fa-paper-plane"></i> Ticket absenden
-                </button>
-
-                <div id="loading" class="loading">
-                    <span class="spinner"></span> Wird gesendet...
-                </div>
-
-                <div id="message" class="message"></div>
-            </form>
-        </section>
 
     </main>
 
