@@ -1369,3 +1369,18 @@ footer p {
     text-align: center;
   }
 }
+
+/* Card Backgrounds */
+.doc-card,
+.issue-card,
+.practice-card,
+.faq-card {
+  background: rgba(115, 202, 255, 0.05);
+}
+
+/* Section Backgrounds */
+.docs-section,
+.troubleshooting-section,
+.best-practices-section {
+  background-color: var(--bg);
+}
