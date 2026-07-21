@@ -1,8 +1,9 @@
 ---
 order: 5
 emoji: 🔐
+category: Datenschutz
 ---
 
 # Ist alles datenschutzkonform?
 
-Ja, selbstverständlich. Ihre Daten verbleiben entweder auf Ihrer eigenen Infrastruktur oder werden ausschließlich auf DSGVO-konformen Servern verarbeitet. Wir setzen auf sorgfältig ausgewählte, etablierte und zertifizierte Dienste und achten konsequent auf die Einhaltung aller relevanten Datenschutzrichtlinien. So stellen wir sicher, dass Ihre Daten jederzeit geschützt und rechtskonform verarbeitet werden.
+Ja, wir erfüllen alle Anforderungen der DSGVO und ISO 27001. Ihre Daten werden verschlüsselt gespeichert und verarbeitet. Sie haben jederzeit vollständige Kontrolle über Ihre Informationen.

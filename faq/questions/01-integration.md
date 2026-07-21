@@ -1,6 +1,7 @@
 ---
 order: 1
 emoji: 🔧
+category: Integration
 ---
 
 # Wie funktioniert die n8n-Integration?

@@ -30,7 +30,9 @@ function loadQuestions() {
       order: data.order || 999,
       emoji: data.emoji || '❓',
       title: title,
+      category: data.category || 'Sonstiges',
       content: marked(contentAfterTitle),
+      contentPlain: contentAfterTitle.replace(/[#*_`\[\]()]/g, ''), // Für Suche
       file
     };
   });
@@ -39,15 +41,53 @@ function loadQuestions() {
 }
 
 function generateHTML(questions) {
-  const faqCards = questions.map(q => {
-    const cardHtml = `
-                <div class="faq-card">
+  // Gruppiere nach Kategorie
+  const grouped = {};
+  questions.forEach(q => {
+    const cat = q.category || 'Sonstiges';
+    if (!grouped[cat]) grouped[cat] = [];
+    grouped[cat].push(q);
+  });
+
+  // Kategorien sortiert
+  const categoryOrder = ['Integration', 'Hosting', 'Pricing', 'Datenschutz', 'Sonstiges'];
+  const orderedCategories = categoryOrder.filter(cat => grouped[cat])
+    .concat(Object.keys(grouped).filter(cat => !categoryOrder.includes(cat)));
+
+  // Generiere Kategorie-Gruppen
+  const categoryGroups = orderedCategories
+    .map(cat => {
+      const cards = grouped[cat]
+        .map(q => `
+                <div class="faq-card" data-category="${q.category}" data-title="${q.title.toLowerCase()}" data-content="${q.contentPlain.toLowerCase()}">
                     <h3>${q.emoji} ${q.title}</h3>
-                    <p>${q.content.replace(/<[^>]*>/g, '')}</p>
+                    <p>${q.content}</p>
                 </div>
-            `;
-    return cardHtml;
-  }).join('');
+            `)
+        .join('');
+      
+      return `
+            <div class="faq-category-group" data-category="${cat}">
+                <h2>${cat}</h2>
+                ${cards}
+            </div>
+        `;
+    })
+    .join('');
+
+  // Generiere Filter-Buttons
+  const filterButtons = orderedCategories
+    .map(cat => `<button class="filter-btn" data-category="${cat}">${cat}</button>`)
+    .join('');
+
+  // JSON für Suche (ohne HTML)
+  const searchData = questions.map(q => ({
+    title: q.title,
+    emoji: q.emoji,
+    category: q.category,
+    content: q.contentPlain
+  }));
+  const faqDataJson = JSON.stringify(searchData);
 
   const htmlContent = `<!DOCTYPE html>
 <html lang="de">
@@ -79,57 +119,63 @@ function generateHTML(questions) {
             <div class="nav-dropdown">
                 <a href="#" class="nav-dropdown-toggle">Datenschutz &amp; Recht</a>
                 <div class="nav-dropdown-menu">
+                    <a href="/datenschutz/">Datenschutzerklärung</a>
                     <a href="/impressum/">Impressum</a>
-                    <a href="/datenschutz/">Datenschutz</a>
-                    <a href="/urheberrecht/">Urheberrecht</a>
-                    <a href="/agb/">AGB</a>
                 </div>
             </div>
         </nav>
     </div>
-    <nav id="mobile-nav">
-        <a href="/">Start</a>
-        <a href="/faq/">FAQ</a>
-        <a href="/support/">Support</a>
-    </nav>
-</header>
+    </header>
 
     <main>
-        <section class="hero">
-            <canvas id="networkCanvas"></canvas>
-            <h1>Häufige Fragen</h1>
-            <p>Schnelle Antworten zu unseren Services</p>
-        </section>
+    <div class="container">
+        <h1>Häufige Fragen (FAQ)</h1>
+        
+        <!-- Search Input -->
+        <div class="faq-search-wrapper">
+            <input 
+                type="text" 
+                id="faq-search" 
+                class="faq-search-input"
+                placeholder="Suche in FAQs..."
+            >
+            <span class="search-results-count"></span>
+        </div>
 
-        <section class="faq-section">
-            <h2 class="section-title">FAQ – Fragen &amp; Antworten</h2>
-            <div class="faq-grid">
-${faqCards}
-            </div>
-        </section>
+        <!-- Kategorie-Filter -->
+        <div class="faq-filters">
+            <button class="filter-btn active" data-category="all">Alle</button>
+            ${filterButtons}
+        </div>
+
+        <!-- FAQ Container -->
+        <div class="faq-container">
+            ${categoryGroups}
+        </div>
+    </div>
     </main>
 
     <footer>
-        <div class="footer-content">
-            <p>&copy; 2024–2026 WEBGUARDS UG. Alle Rechte vorbehalten.</p>
+        <div class="container">
+            <p>&copy; 2024 WEBGUARDS. Alle Rechte vorbehalten.</p>
         </div>
     </footer>
 
-    <script src="/assets/js/form-handler.js"></script>
-    <script src="/assets/js/network.js"></script>
+    <script>
+        const faqData = ${faqDataJson};
+    </script>
+    <script src="/assets/js/faq-search.js"></script>
+    <script src="/assets/js/nav.js"></script>
 </body>
 </html>`;
 
-  return htmlContent;
+  fs.writeFileSync(OUTPUT_FILE, htmlContent);
 }
 
-try {
-  const questions = loadQuestions();
-  const html = generateHTML(questions);
-  fs.writeFileSync(OUTPUT_FILE, html);
-  console.log(`✅ FAQ generated with ${questions.length} questions`);
-  questions.forEach(q => console.log(`  ${q.order}. ${q.emoji} ${q.title}`));
-} catch (error) {
-  console.error('❌ Error:', error.message);
-  process.exit(1);
-}
+const questions = loadQuestions();
+generateHTML(questions);
+
+console.log(`✅ FAQ generated with ${questions.length} questions`);
+questions.forEach(q => {
+  console.log(`  ${q.emoji} ${q.title} (${q.category})`);
+});
