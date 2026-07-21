@@ -1591,3 +1591,61 @@ li {
 .recommendation-box strong {
   color: var(--text);
 }
+
+/* Business Tools Section */
+.businesstools-section {
+  background-color: var(--bg);
+  padding: 3rem 2rem;
+}
+
+.tools-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  row-gap: 2rem;
+  column-gap: 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.tool-card {
+  background: rgba(37, 99, 235, 0.1);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 2rem;
+  transition: all 0.3s;
+}
+
+.tool-card:hover {
+  background: rgba(37, 99, 235, 0.15);
+  border-color: var(--primary-light);
+  transform: translateY(-2px);
+}
+
+.tool-card h3 {
+  color: var(--text);
+  margin-bottom: 1rem;
+  font-size: 1.1rem;
+}
+
+.tool-card p {
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+@media (max-width: 1200px) {
+  .tools-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .tools-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .tools-grid {
+    grid-template-columns: 1fr;
+  }
+}
