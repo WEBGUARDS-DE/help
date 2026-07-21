@@ -5,4 +5,4 @@ emoji: ⏱️
 
 # Wie lange dauert eine Integration?
 
-Das hängt von der Komplexität ab. Einfache APIs: Tage. Komplexe Workflows: Wochen. Wir geben dir einen realistischen Zeitplan nach der Analyse.
+Die Dauer einer Integration hängt von der Komplexität Ihrer Anforderungen ab. Einfache API-Anbindungen lassen sich oft innerhalb weniger Tage umsetzen, während umfangreichere Workflows mehrere Wochen in Anspruch nehmen können. Nach einer initialen Analyse erhalten Sie von uns einen realistischen und verbindlichen Zeitplan, damit Sie jederzeit den Überblick behalten.
