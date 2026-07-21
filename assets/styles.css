@@ -1450,9 +1450,11 @@ li {
 }
 
 .advanced-card {
-  background-color: #f9f9f9;
-  padding: 20px;
-  margin-bottom: 20px;
+  background: rgba(37, 99, 235, 0.1);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 2rem;
+  transition: all 0.3s;
+  margin: 35px 0;
   border-left: 4px solid #73caff;
-  border-radius: 5px;
 }
