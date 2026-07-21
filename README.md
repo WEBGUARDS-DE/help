@@ -105,7 +105,8 @@ help.webguards.de/support
 
 - **Help Website:** https://help.webguards.de
 - **FAQ:** https://help.webguards.de/faq
-- **Support:** https://help.webguards.de/support
+- **Support Form:** https://help.webguards.de/form
+- **Support Info:** https://help.webguards.de/support
 - **Backend Tickets:** https://github.com/WEBGUARDS-DE/customer
 
 ---
