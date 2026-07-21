@@ -25,16 +25,38 @@ jobs:
         run: npm install
       
       - name: Build FAQ
-        run: npm run build:faq
+        run: |
+          echo "Starting FAQ build..."
+          node build-faq.js
+          echo "FAQ build completed"
+          ls -lah faq/index.html
       
       - name: Commit and push
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
+          
+          # Prüfe ob Datei existiert
+          if [ ! -f "faq/index.html" ]; then
+            echo "ERROR: faq/index.html wurde nicht generiert!"
+            exit 1
+          fi
+          
+          echo "Adding faq/index.html to git..."
           git add faq/index.html
+          
+          echo "Checking git status..."
+          git status
+          
           if git diff --cached --quiet; then
             echo "No changes to commit"
           else
+            echo "Committing changes..."
             git commit -m "build(faq): auto-generated from markdown"
-            git push https://${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git HEAD:main
+            echo "Pushing to GitHub..."
+            git push https://${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git HEAD:main || {
+              echo "Push failed. Current HEAD:"
+              git log --oneline -1
+              exit 1
+            }
           fi
